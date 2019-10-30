@@ -33,4 +33,35 @@ public class MiscUtils {
             }
         }
     }
+
+    public static BahmniObservation getFollowUpDateObservation(Collection<BahmniObservation> bahmniObservations) {
+		BahmniObservation observation = null;
+        for (BahmniObservation bahmniObservation : bahmniObservations) {
+			for(BahmniObservation groupMember : bahmniObservation.getGroupMembers()) {
+				for(BahmniObservation groupMember2 : groupMember.getGroupMembers()) {
+					if(groupMember2.getConceptUuid().equals("88489023-783b-4021-b7a9-05ca9877bf67")) {
+						if(groupMember2.getValue() != null){
+							observation = groupMember2;
+						}
+					}
+				}
+			}
+        }
+		return observation;
+    }
+
+    public static BahmniObservation getFollowUpDateObservationRecursive(Collection<BahmniObservation> bahmniObservations, String conceptName){
+        for(BahmniObservation bahmniObservation : bahmniObservations) {
+            if (bahmniObservation.getConcept().getName().equals(conceptName)) {
+                if (bahmniObservation.getValue() != null) {
+                    return bahmniObservation;
+                }
+            } else {
+                if (CollectionUtils.isNotEmpty(bahmniObservation.getGroupMembers())) {
+                    return getFollowUpDateObservationRecursive(bahmniObservation.getGroupMembers(), conceptName);
+                }
+            }
+       }
+        return null;
+    }
 }
