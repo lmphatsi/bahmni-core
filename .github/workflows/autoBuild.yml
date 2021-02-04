@@ -21,10 +21,13 @@ jobs:
       with:
         java-version: 1.8
     
-    - name: Use ruby 2.7
+    - name: Use ruby 2.4
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: '2.7'
+        ruby-version: '2.4'
+        
+    - name: Get Ruby version
+      run: ruby --version
     
     - name: Get compass
       run: gem install compass
