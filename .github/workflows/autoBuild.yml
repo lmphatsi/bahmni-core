@@ -30,7 +30,7 @@ jobs:
       run: ruby --version
     
     - name: Check Java version
-      run: java --version
+      run: java -version
     
     - name: Get compass
       run: gem install compass
